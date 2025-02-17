@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
 ## Getting Started
 
-First, run the development server:
+This is a webhook handler for Clerk events. It is built with Next.js and Novu.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Setup
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Clone the repository
+2. Run `npm install` to install the dependencies
+3. Create a `.env` file and add the following variables:
+    - `NOVU_SECRET_KEY`: The secret key for the Novu project
+    - `CLERK_SECRET_KEY`: The secret key for the Clerk project
+    - `CLERK_WEBHOOK_SECRET`: The webhook secret for the Clerk project
+4. Run `npm run dev` to start the development server
+5. Run `ngrok http 3000` to start the ngrok server for local testing
+6. Copy the https:// URL from ngrok and paste it in the webhook URL field in Clerk
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Testing
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Ensure you have a Novu project with a workflow created that is corresponding to the Clerk event you want to test
+2. Navigate to the Clerk webhook page and create a new webhook
+3. Set the webhook URL to the ngrok URL
+4. Set the webhook secret to the `CLERK_WEBHOOK_SECRET` in the `.env` file
+5. Set the events you want to subscribe to
+6. Trigger a Clerk event and see the webhook in Novu
 
-## Learn More
+## When going live
 
-To learn more about Next.js, take a look at the following resources:
+1. Navigate to the Emails page under the Customization section in Clerk
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Here you can see all the email templates Clerk has available.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. Click on the email template you want 
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The code maps the Clerk events to Novu workflows and sends the events to Novu.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
